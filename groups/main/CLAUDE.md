@@ -162,7 +162,10 @@ Fields:
 - **trigger**: The trigger word (usually same as global, but could differ)
 - **requiresTrigger**: Whether `@trigger` prefix is needed (default: `true`). Set to `false` for solo/personal chats where all messages should be processed
 - **isMain**: Whether this is the main control group (elevated privileges, no trigger required)
-- **model**: Claude model ID for this group (e.g. `claude-sonnet-4-6`). Unset = SDK default
+- **model**: Claude model ID for this group. Unset = SDK default. Available models:
+  - `claude-opus-4-6` — most capable, highest cost
+  - `claude-sonnet-4-6` — balanced capability and cost
+  - `claude-haiku-4-5-20251001` — fastest, lowest cost
 - **added_at**: ISO timestamp when registered
 
 ### Trigger Behavior
