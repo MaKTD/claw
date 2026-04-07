@@ -124,6 +124,12 @@ SCHEDULE VALUE FORMAT (all times are LOCAL timezone):
       .describe(
         'Optional bash script to run before waking the agent. Script must output JSON on the last line of stdout: { "wakeAgent": boolean, "data"?: any }. If wakeAgent is false, the agent is not called. Test your script with bash -c "..." before scheduling.',
       ),
+    model: z
+      .string()
+      .optional()
+      .describe(
+        'Claude model ID to use for this task (e.g. "claude-sonnet-4-6"). Overrides the group default. Omit to use group default.',
+      ),
   },
   async (args) => {
     // Validate schedule_value before writing IPC
@@ -194,6 +200,7 @@ SCHEDULE VALUE FORMAT (all times are LOCAL timezone):
       taskId,
       prompt: args.prompt,
       script: args.script || undefined,
+      model: args.model || undefined,
       schedule_type: args.schedule_type,
       schedule_value: args.schedule_value,
       context_mode: args.context_mode || 'group',
@@ -377,6 +384,12 @@ server.tool(
       .describe(
         'New script for the task. Set to empty string to remove the script.',
       ),
+    model: z
+      .string()
+      .optional()
+      .describe(
+        'New Claude model ID (e.g. "claude-sonnet-4-6"). Set to empty string to clear and use group default.',
+      ),
   },
   async (args) => {
     // Validate schedule_value if provided
@@ -424,6 +437,7 @@ server.tool(
     };
     if (args.prompt !== undefined) data.prompt = args.prompt;
     if (args.script !== undefined) data.script = args.script;
+    if (args.model !== undefined) data.model = args.model;
     if (args.schedule_type !== undefined)
       data.schedule_type = args.schedule_type;
     if (args.schedule_value !== undefined)
@@ -466,6 +480,12 @@ Use available_groups.json to find the JID for a group. The folder name must be c
       .describe(
         'Whether messages must start with the trigger word. Default: false (respond to all messages). Set to true for busy groups with many participants where you only want the agent to respond when explicitly mentioned.',
       ),
+    model: z
+      .string()
+      .optional()
+      .describe(
+        'Default Claude model ID for this group (e.g. "claude-sonnet-4-6"). Omit to use SDK default.',
+      ),
   },
   async (args) => {
     if (!isMain) {
@@ -487,6 +507,7 @@ Use available_groups.json to find the JID for a group. The folder name must be c
       folder: args.folder,
       trigger: args.trigger,
       requiresTrigger: args.requiresTrigger ?? false,
+      model: args.model || undefined,
       timestamp: new Date().toISOString(),
     };
 
