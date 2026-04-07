@@ -355,6 +355,7 @@ async function runAgent(
       groupFolder: t.group_folder,
       prompt: t.prompt,
       script: t.script || undefined,
+      model: t.model || undefined,
       schedule_type: t.schedule_type,
       schedule_value: t.schedule_value,
       status: t.status,
@@ -392,6 +393,7 @@ async function runAgent(
         chatJid,
         isMain,
         assistantName: ASSISTANT_NAME,
+        model: group.model,
       },
       (proc, containerName) =>
         queue.registerProcess(chatJid, proc, containerName, group.folder),

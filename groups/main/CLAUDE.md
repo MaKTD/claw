@@ -162,6 +162,7 @@ Fields:
 - **trigger**: The trigger word (usually same as global, but could differ)
 - **requiresTrigger**: Whether `@trigger` prefix is needed (default: `true`). Set to `false` for solo/personal chats where all messages should be processed
 - **isMain**: Whether this is the main control group (elevated privileges, no trigger required)
+- **model**: Claude model ID for this group (e.g. `claude-sonnet-4-6`). Unset = SDK default
 - **added_at**: ISO timestamp when registered
 
 ### Trigger Behavior

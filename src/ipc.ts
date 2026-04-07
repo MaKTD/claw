@@ -163,6 +163,7 @@ export async function processTaskIpc(
     schedule_value?: string;
     context_mode?: string;
     script?: string;
+    model?: string;
     groupFolder?: string;
     chatJid?: string;
     targetJid?: string;
@@ -265,6 +266,7 @@ export async function processTaskIpc(
           schedule_type: scheduleType,
           schedule_value: data.schedule_value,
           context_mode: contextMode,
+          model: data.model || null,
           next_run: nextRun,
           status: 'active',
           created_at: new Date().toISOString(),
@@ -355,6 +357,7 @@ export async function processTaskIpc(
         const updates: Parameters<typeof updateTask>[1] = {};
         if (data.prompt !== undefined) updates.prompt = data.prompt;
         if (data.script !== undefined) updates.script = data.script || null;
+        if (data.model !== undefined) updates.model = data.model || null;
         if (data.schedule_type !== undefined)
           updates.schedule_type = data.schedule_type as
             | 'cron'
@@ -453,6 +456,7 @@ export async function processTaskIpc(
           containerConfig: data.containerConfig,
           requiresTrigger: data.requiresTrigger,
           isMain: existingGroup?.isMain,
+          model: data.model || existingGroup?.model,
         });
       } else {
         logger.warn(

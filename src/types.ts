@@ -40,6 +40,7 @@ export interface RegisteredGroup {
   containerConfig?: ContainerConfig;
   requiresTrigger?: boolean; // Default: true for groups, false for solo chats
   isMain?: boolean; // True for the main control group (no trigger, elevated privileges)
+  model?: string; // Claude model ID (e.g. "claude-sonnet-4-6"). Unset = SDK default.
 }
 
 export interface NewMessage {
@@ -66,6 +67,7 @@ export interface ScheduledTask {
   schedule_type: 'cron' | 'interval' | 'once';
   schedule_value: string;
   context_mode: 'group' | 'isolated';
+  model?: string | null; // Claude model override. Unset = group default.
   next_run: string | null;
   last_run: string | null;
   last_result: string | null;

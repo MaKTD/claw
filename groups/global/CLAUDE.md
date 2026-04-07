@@ -113,3 +113,15 @@ If a user wants tasks running more than ~2x daily and a script can't reduce agen
 - Suggest restructuring with a script that checks the condition first
 - If the user needs an LLM to evaluate data, suggest using an API key with direct Anthropic API calls inside the script
 - Help the user find the minimum viable frequency
+
+## Model Selection
+
+Each group has a default model. Tasks can override it. If unset, the SDK default is used.
+
+When setting a model via `register_group` or `schedule_task` / `update_task`, use the `model` field with a full model ID.
+
+### Available Models
+
+- `claude-opus-4-6` — most capable, highest cost
+- `claude-sonnet-4-6` — balanced capability and cost
+- `claude-haiku-4-5-20251001` — fastest, lowest cost
